@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{Component,useState} from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -11,6 +11,12 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+import {signIn} from '../store/actions/authAction' 
+import {connect} from 'react-redux'
+import {Redirect} from 'react-router-dom'
+import Snackbar from '@material-ui/core/Snackbar';
+import MySnackbarContentWrapper from '../components/MySnackbarContentWrapper'
+
 
 
 const useStyles = makeStyles(theme => ({
@@ -33,11 +39,51 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function Login() {
-  const classes = useStyles();
+  
 
+ function Login(props) {
+  const classes = useStyles();
+  const [email,setEmail] = useState('')
+  const [password,setPassword]=useState('')
+  const [open, setOpen] = useState(false);
+
+
+  const handleSubmit=(e)=>{
+    e.preventDefault()
+    console.log(email,password)
+    props.signIn(email,password)
+  }
+
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setOpen(false);
+  };
+
+  console.log(props.auth,'auth')
+  if(props.auth.auth.isSuccess) return <Redirect to="/" />
   return (
     <Container component="main" maxWidth="xs">
+      {props.auth.auth.signupsuccess==true?(
+        <Snackbar
+        anchorOrigin={{
+          vertical: 'top',
+          horizontal: 'right',
+        }}
+        open='true'
+        autoHideDuration={120}
+        onClose={handleClose}
+      >
+        <MySnackbarContentWrapper
+          onClose={handleClose}
+          variant='success'
+          message='New User Created ,Please Login'
+        />
+      </Snackbar>
+        ):null} 
+
       <CssBaseline />
       <div className={classes.paper}>
         <Avatar className={classes.avatar}>
@@ -46,7 +92,7 @@ export default function Login() {
         <Typography component="h1" variant="h5">
           Sign in
         </Typography>
-        <form className={classes.form} noValidate>
+        <form className={classes.form} noValidate onSubmit={handleSubmit}>
           <TextField
             variant="outlined"
             margin="normal"
@@ -55,19 +101,23 @@ export default function Login() {
             id="email"
             label="Email Address"
             name="email"
+            value={email}
             autoComplete="email"
             autoFocus
+            onChange={event=>setEmail(event.target.value)}
           />
           <TextField
             variant="outlined"
             margin="normal"
             required
             fullWidth
+            value={password}
             name="password"
             label="Password"
             type="password"
             id="password"
             autoComplete="current-password"
+            onChange={event=>setPassword(event.target.value)}
           />
           <FormControlLabel
             control={<Checkbox value="remember" color="primary" />}
@@ -79,7 +129,6 @@ export default function Login() {
             variant="contained"
             color="primary"
             className={classes.submit}
-            href="/"
           >
             Sign In
           </Button>
@@ -101,3 +150,19 @@ export default function Login() {
     </Container>
   );
 }
+
+const mapStateToProps = (state)=>{
+  console.log(state)
+  return{
+    auth:state
+  }
+}
+
+const mapDispatchToProps = (dispatch)=>{
+  return{
+    signIn:(email,password)=>dispatch(signIn(email,password))
+  }
+}
+
+
+export default connect(mapStateToProps,mapDispatchToProps)(Login)

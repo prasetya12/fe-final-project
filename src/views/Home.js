@@ -13,6 +13,8 @@ import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import BookCard from '../components/BookCard'
 import SummaryBook from '../components/SummaryBook'
+import {getBooks} from '../store/actions/booksAction' 
+import {connect} from 'react-redux'
 
 
 const useStyles = makeStyles(theme => ({
@@ -40,7 +42,7 @@ const useStyles = makeStyles(theme => ({
     }
 }))
 
-export default function Home(){
+function Home(props){
     const classes = useStyles();
     const [category, setCategory] = React.useState('');
 
@@ -54,6 +56,12 @@ export default function Home(){
     const handleChange = event => {
         setCategory(event.target.value);
       };
+
+      React.useEffect(()=>{
+        return ()=>{
+            props.getBooks()
+        }
+      })
 
     return(
         <div className={classes.container}>
@@ -89,3 +97,18 @@ export default function Home(){
     )
     
 }
+
+const mapStateToProps = (state)=>{
+  console.log(state)
+  return{
+    auth:state
+  }
+}
+
+const mapDispatchToProps = (dispatch)=>{
+  return{
+    getBooks:()=>dispatch(getBooks())
+  }
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(Home)

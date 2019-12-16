@@ -8,8 +8,10 @@ import Button from '@material-ui/core/Button';
 
 const SignedOutLinks =(props)=>{
     return(
-        <Box className="container">
-            <Button color="inherit" href="/login">Login</Button>
+        <Box className="container" display="flex">
+             <Box p={1} order={3} style={{color:'red'}}>
+             <Button variant="contained" href="/login" color="primary">Login</Button>
+            </Box>
         </Box>
     )
 }

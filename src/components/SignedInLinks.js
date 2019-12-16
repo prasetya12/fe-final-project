@@ -8,6 +8,9 @@ import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import Avatar from '@material-ui/core/Avatar';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
+import {signOut} from '../store/actions/authAction'
+import {connect} from 'react-redux'
+import {Redirect} from 'react-router-dom'
 
 
 const useStyles = makeStyles(theme => ({
@@ -65,9 +68,11 @@ const SignedInLinks =(props)=>{
     const handleClick = event=>{
         setAnchorEl(event.currentTarget);
     }
-    const handleClose = () => {
-        setAnchorEl(null);
+    const handleLogout = () => {
+        props.signOut()
       };
+
+    if(props.auth.auth.isLogout) return <Redirect to="/" />
     return(
         <Box className="container" display="flex" style={{alignItems:'center'}}>
             <Box p={1} order={3} style={{color:'red'}}>
@@ -97,11 +102,11 @@ const SignedInLinks =(props)=>{
                     anchorEl={anchorEl}
                     keepMounted
                     open={Boolean(anchorEl)}
-                    onClose={handleClose}
+                    onClose={handleLogout}
                 >
                     {/* <MenuItem onClick={handleClose}>Profile</MenuItem>
                     <MenuItem onClick={handleClose}>My account</MenuItem> */}
-                    <MenuItem onClick={handleClose}>Logout</MenuItem>
+                    <MenuItem onClick={handleLogout}>Logout</MenuItem>
                 </Menu>
                 
             </Box>
@@ -109,4 +114,16 @@ const SignedInLinks =(props)=>{
     )
 }
 
-export default SignedInLinks
+const mapStateToProps = (state)=>{
+  console.log(state)
+  return{
+    auth:state
+  }
+}
+const mapDispatchToProps = (dispatch)=>{
+  return{
+    signOut:()=>dispatch(signOut())
+  }
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(SignedInLinks)

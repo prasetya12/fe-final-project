@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useState,useEffect} from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -12,7 +12,11 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-
+import {connect} from 'react-redux'
+import {signUp} from '../store/actions/authAction' 
+import {Redirect} from 'react-router-dom'
+import Snackbar from '@material-ui/core/Snackbar';
+import MySnackbarContentWrapper from '../components/MySnackbarContentWrapper'
 
 const useStyles = makeStyles(theme => ({
   paper: {
@@ -34,11 +38,83 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function Signup() {
+function Signup(props) {
   const classes = useStyles();
+  const [firstName,setFirstName] = useState('')
+  const [lastName,setLastName]= useState('')
+  const [email,setEmail] = useState('')
+  const [password,setPassword] = useState('')
+  const [open, setOpen] = useState(false);
+  const [variant,setVariant] = useState('success');
+  const [message,setMessage] = useState('New User Created');
 
+  const handleSubmit = (e)=>{
+    e.preventDefault()
+    console.log(firstName,'firstname')
+    console.log(lastName,'lastname')
+    console.log(email,'email')
+    props.signUp(firstName,lastName,email,password)
+
+  }
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setOpen(false);
+  };
+
+  // useEffect(()=>{
+  //   console.log(props.auth,"auth")
+
+  //   if(props.auth.auth.signupsuccess==true){
+  //     setVariant('success')
+  //     setMessage('New User Created')
+  //     setOpen(true)
+  //   }else if(props.auth.auth.signupsuccess==false){
+  //     setVariant('error')
+  //     setMessage('New User failed to creted try again')
+  //     setOpen(open)
+  //   }
+  // })
+  if(props.auth.auth.signupsuccess==true) return <Redirect to="/login" />
   return (
-    <Container component="main" maxWidth="xs">
+    <Container component="main" maxWidth="xs" onSubmit={handleSubmit}>
+      {props.auth.auth.signupsuccess==true?(
+        <Snackbar
+        anchorOrigin={{
+          vertical: 'top',
+          horizontal: 'right',
+        }}
+        open='true'
+        autoHideDuration={120}
+        onClose={handleClose}
+      >
+        <MySnackbarContentWrapper
+          onClose={handleClose}
+          variant='success'
+          message='New User Created'
+        />
+      </Snackbar>
+        ):props.auth.auth.signupsuccess==false?(
+        <Snackbar
+        anchorOrigin={{
+          vertical: 'top',
+          horizontal: 'right',
+        }}
+        open='true'
+        autoHideDuration={120}
+        onClose={handleClose}
+      >
+        <MySnackbarContentWrapper
+          onClose={handleClose}
+          variant='error'
+          message='New User failed to creted try again'
+        />
+      </Snackbar>
+        ):null}  
+
+       
       <CssBaseline />
       <div className={classes.paper}>
         <Avatar className={classes.avatar}>
@@ -56,6 +132,8 @@ export default function Signup() {
             label="First Name"
             name="firstname"
             autoFocus
+            value={firstName}
+            onChange={event=>setFirstName(event.target.value)}
           />
           <TextField
             variant="outlined"
@@ -64,6 +142,8 @@ export default function Signup() {
             id="lastname"
             label="Last Name"
             name="lastname"
+            value={lastName}
+            onChange={event=>setLastName(event.target.value)}
             autoFocus
           />
           <TextField
@@ -74,6 +154,8 @@ export default function Signup() {
             id="email"
             label="Email Address"
             name="email"
+            value={email}
+            onChange={event=>setEmail(event.target.value)}
             autoComplete="email"
             autoFocus
           />
@@ -86,6 +168,8 @@ export default function Signup() {
             label="Password"
             type="password"
             id="password"
+            value={password}
+            onChange={event=>setPassword(event.target.value)}
             autoComplete="current-password"
           />
 
@@ -112,3 +196,19 @@ export default function Signup() {
     </Container>
   );
 }
+
+const mapStateToProps = (state)=>{
+  console.log(state)
+  return{
+    auth:state
+  }
+}
+
+const mapDispatchToProps = (dispatch)=>{
+  return{
+    signUp:(firstName,lastName,email,password)=>dispatch(signUp(firstName,lastName,email,password))
+  }
+}
+
+
+export default connect(mapStateToProps,mapDispatchToProps)(Signup)

@@ -39,7 +39,7 @@ const useStyles = makeStyles(theme => ({
 
 export default function Navbar(){
     const classes = useStyles();
-
+    console.log(window.localStorage.getItem('token'))
     return(
         <div className={classes.root}>
             <AppBar position="fixed">
@@ -55,7 +55,7 @@ export default function Navbar(){
                         
                     </div> */}
                     <Box display="flex" justifyContent="flex-end" m={1} p={1}style={{backgroundColor:'transparent'}}>
-                        <Signin/>
+                        {window.localStorage.getItem('token')!=null?<Signin/>:<Signout/>}
                     </Box>
                 </Toolbar>
             </AppBar>
