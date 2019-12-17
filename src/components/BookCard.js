@@ -12,24 +12,25 @@ const useStyles = makeStyles(theme => ({
 }))
 
 
-export default function BookCard(){
+export default function BookCard(props){
+    const data = props.data
     const classes = useStyles();
 
     return(
         <Card className={classes.card}>
                 <div style={{display:'flex',justifyContent:'center',padding:10}}>
-                    <img src={require('../assets/buku.jpg')} style={{width:150,height:'100%'}}/>
+                    <img src={data.image_url} style={{width:150,height:250}}/>
                     
                 </div>
                 <CardContent>
                     <Typography variant="body1" color="textPrimar" component="p" style={{fontWeight:'500'}}>
-                    Harry Potter
+                    {data.name}
                     </Typography>
                     <Typography variant="body2" color="textSecondary" component="p" style={{marginTop:5}}>
                     by JK Rowling
                     </Typography>
                     <Typography variant="body2" component="p" style={{marginTop:5,color:'#12AFC0'}}>
-                    Rp.120.000
+                    {data.price.toLocaleString('id', { style: 'currency', currency: 'IDR' })}
                     </Typography>
                 </CardContent>
         </Card>

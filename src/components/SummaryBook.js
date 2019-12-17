@@ -3,7 +3,7 @@ import RowBook from '../components/RowBook'
 import { Grid } from '@material-ui/core'
 
 
-export default function SummaryBook(){
+export default function SummaryBook(props){
     return(
         <Grid container spacing={10}>
             <Grid container item xs={12} spacing={3}>

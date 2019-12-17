@@ -14,7 +14,9 @@ import Typography from '@material-ui/core/Typography';
 import BookCard from '../components/BookCard'
 import SummaryBook from '../components/SummaryBook'
 import {getBooks} from '../store/actions/booksAction' 
-import {connect} from 'react-redux'
+import {connect,useSelector} from 'react-redux'
+import {Link} from 'react-router-dom'
+import GridList from '@material-ui/core/GridList';
 
 
 const useStyles = makeStyles(theme => ({
@@ -39,12 +41,21 @@ const useStyles = makeStyles(theme => ({
       },
     containerProduk:{
         marginTop:'3%'
-    }
+    },
+    gridList: {
+        width: 800,
+        height: 700,
+        // Promote the list into his own layer on Chrome. This cost memory but helps keeping high FPS.
+        transform: 'translateZ(0)',
+      },
 }))
 
 function Home(props){
+    const databooks = useSelector(state => state.books.data);
     const classes = useStyles();
     const [category, setCategory] = React.useState('');
+
+    const [data,setData] = React.useState([]);
 
     const inputLabel = React.useRef(null);
     const [labelWidth, setLabelWidth] = React.useState(0);
@@ -57,11 +68,17 @@ function Home(props){
         setCategory(event.target.value);
       };
 
+      // React.useEffect(()=>{
+      //   return ()=>{
+      //       props.getBooks()
+      //   }
+      // })
+
       React.useEffect(()=>{
-        return ()=>{
-            props.getBooks()
-        }
-      })
+        props.getBooks()
+        
+      }, [])
+
 
     return(
         <div className={classes.container}>
@@ -90,7 +107,14 @@ function Home(props){
                 </Grid>
             </Grid>
             <Grid container spacing={1} className={classes.containerProduk}>
-                <SummaryBook/>
+                <GridList cellHeight={200} cols={4} spacing={30} className={classes.gridList}>
+                    {databooks.map((book,index)=>(
+                        <Link to={'/product/'+book._id} key={index}>
+                            <BookCard data={book}/>
+                        </Link>
+                    ))}
+                </GridList>
+                {/*<SummaryBook data={databooks}/>*/}
                 
             </Grid>
         </div>
@@ -99,9 +123,8 @@ function Home(props){
 }
 
 const mapStateToProps = (state)=>{
-  console.log(state)
   return{
-    auth:state
+    books:state.books
   }
 }
 

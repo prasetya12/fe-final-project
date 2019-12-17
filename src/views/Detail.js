@@ -1,4 +1,4 @@
-import React,{Component,useState} from 'react'
+import React,{Component,useState,useEffect} from 'react'
 import Container from '@material-ui/core/Container';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
@@ -6,6 +6,11 @@ import Typography from '@material-ui/core/Typography';
 import LocalShippingIcon from '@material-ui/icons/LocalShipping';
 import Button from '@material-ui/core/Button';
 import RowBook from '../components/RowBook'
+import {oneBook} from '../store/actions/booksAction' 
+import {connect} from 'react-redux'
+import {Redirect} from 'react-router-dom'
+
+
 
 
 
@@ -23,10 +28,19 @@ const useStyles = makeStyles(theme=>({
 }))
 
 
-export default function Detail(){
+function Detail(props){
     const classes = useStyles();
     const [count, setCount] = useState(1);
+    const path = window.location.pathname.split('/')
 
+    const id = path[2]
+
+
+    React.useEffect(()=>{
+        props.oneBook(id)
+        
+      }, [])
+    if(!window.localStorage.getItem('token')) return <Redirect to ='/login'/>
 	return(
 		<Grid container className={classes.container}>
 			<Grid container xs={12} style={{height:'100%',backgroundColor:'white',padding:'2%'}}>
@@ -108,10 +122,23 @@ Fahri mempunyai tetangga di lantai tiga, yakni seorang wanita Mesir bernama Mari
 				</h4>
 			</Grid>
 			<h3 style={{marginTop:30}}>Recomendation</h3>
-			<Grid container item xs={12} spacing={3} style={{marginTop:20}}>
-                <RowBook/>
-            </Grid>
+			
 		</Grid>
 	)
 }
+
+
+const mapStateToProps = (state)=>{
+  return{
+    books:state.books
+  }
+}
+
+const mapDispatchToProps = (dispatch)=>{
+  return{
+    oneBook:(id)=>dispatch(oneBook(id))
+  }
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(Detail)
 

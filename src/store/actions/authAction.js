@@ -3,7 +3,7 @@ import {url} from '../../constant/const.js'
 export const signIn = (email,password)=>{
 	return (dispatch)=>{
 		// console.log(dispatch,'halo')
-		return axios.post(`${url}/users/login`,{email:email,password:password,role:1})
+		return axios.post(`${url}/users/login`,{email:email,password:password,role:0})
 			.then(response=>{
 				window.localStorage.setItem('token',"Bearer "+response.data.token)
 
