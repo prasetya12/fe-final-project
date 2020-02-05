@@ -6,9 +6,15 @@ import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import Box from '@material-ui/core/Box'
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles,fade } from '@material-ui/core/styles';
 import Signout from '../components/SignedOutLinks'
 import Signin from '../components/SignedInLinks'
+import SearchIcon from '@material-ui/icons/Search';
+// import InputBase from '@material-ui/core/InputBase';
+import OutlinedInput from '@material-ui/core/OutlinedInput';
+import { grey } from '@material-ui/core/colors';
+import classNames from 'classnames'
+
 
 
 
@@ -35,19 +41,86 @@ const useStyles = makeStyles(theme => ({
     title: {
       flexGrow: 1,
     },
+    containerSearch:{
+        flexGrow:7
+    },
+    inputRoot: {
+        color: '#12AFC0',
+        width:'50%',
+        borderColor:'black',
+        borderWidth:1,
+        height:50,
+        // backgroundColor:'red'
+        
+    },
+    inputInput: {
+        padding: theme.spacing(1, 1, 1, 7),
+        transition: theme.transitions.create('width'),
+        width: '50%',
+        color:'#12AFC0',
+        [theme.breakpoints.up('md')]: {
+            width: 200,
+        },
+    },
+    search: {
+        position: 'relative',
+        borderRadius: theme.shape.borderRadius,
+        borderWidth: 5,
+        borderColor: '#d6d7da',
+        marginRight: theme.spacing(2),
+        marginLeft: 0,
+        width: '100%',
+    },
+    searchIcon: {
+        marginLeft:20,
+        width: theme.spacing(-10),
+        height: '100%',
+        position: 'absolute',
+        pointerEvents: 'none',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        color:'#12AFC0'
+    },
+    inputSearch:{
+        color:'secondary'
+    },
+    tryClass:{
+        backgroundColor:'blue'
+    },
+    toolBar:{
+        paddingRight:100,
+        paddingLeft:100,
+        backgroundColor:'white'
+    },
   }));
 
 export default function Navbar(){
     const classes = useStyles();
     console.log(window.localStorage.getItem('token'))
     return(
-        <div className={classes.root}>
-            <AppBar position="fixed">
-                <Toolbar style={{paddingRight:100,paddingLeft:100,backgroundColor:'white'}}>
+        <div>
+            <AppBar elevation={1} position="fixed">
+                <Toolbar className={classes.toolBar}>
                     <Box  className={classes.containerButton}>
                         <IconButton edge="start" className={classes.menuButton} href="/" aria-label="menu">
                             BookFair
                         </IconButton>
+                    </Box>
+                    <Box className={classes.containerSearch}>
+                        <div className={classes.search}>
+                            <div className={classes.searchIcon}>
+                            <SearchIcon />
+                            </div>
+                            <OutlinedInput className={classes.inputSearch}
+                            placeholder="Search…"
+                            classes={{
+                                root: classes.inputRoot,
+                                input: classes.inputInput,
+                            }}
+                            inputProps={{ 'aria-label': 'search' }}
+                            />
+                        </div>
                     </Box>
                     
                     {/* <div className={classes.link} style={{flex:1,backgroundColor:'red',flexDirection:'row-reverse'}}>
@@ -55,7 +128,8 @@ export default function Navbar(){
                         
                     </div> */}
                     <Box display="flex" justifyContent="flex-end" m={1} p={1}style={{backgroundColor:'transparent'}}>
-                        {window.localStorage.getItem('token')!=null?<Signin/>:<Signout/>}
+                    <Signin/> 
+                        {/* {window.localStorage.getItem('token')!=null?<Signin/>:<Signout/>} */}
                     </Box>
                 </Toolbar>
             </AppBar>
