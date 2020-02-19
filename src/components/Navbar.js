@@ -97,10 +97,9 @@ const useStyles = makeStyles(theme => ({
 
 export default function Navbar(){
     const classes = useStyles();
-    console.log(window.localStorage.getItem('token'))
     return(
         <div>
-            <AppBar elevation={1} position="fixed">
+            <AppBar  position="fixed">
                 <Toolbar className={classes.toolBar}>
                     <Box  className={classes.containerButton}>
                         <IconButton edge="start" className={classes.menuButton} href="/" aria-label="menu">
