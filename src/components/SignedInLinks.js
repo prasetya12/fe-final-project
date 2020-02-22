@@ -9,7 +9,7 @@ import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import {signOut} from '../store/actions/authAction'
 import {connect} from 'react-redux'
-import {Redirect} from 'react-router-dom'
+import {Redirect,Link} from 'react-router-dom'
 
 
 const useStyles = makeStyles(theme => ({
@@ -35,8 +35,10 @@ const SignedInLinks =(props)=>{
     if(props.auth.auth.isLogout) return <Redirect to="/" />
     return(
         <Box className="container" display="flex" style={{alignItems:'center'}}>
-            <Box p={1} mx={5} order={3} style={{color:'#12AFC0',display:'flex'}}>
+            <Box p={1} mx={5} order={3} style={{color:'#4288CC',display:'flex'}}>
+              <Link to="/cart/2">
                 <ShoppingCartIcon style={{fontSize:30}}/>
+              </Link>
             </Box>
             <Box p={1} order={3} style={{color:'#12AFC0'}}>
                 <Avatar alt="Remy Sharp" src="/broken-image.jpg" aria-controls="simple-menu" aria-haspopup="true" className={classes.orange} onClick={handleClick}>

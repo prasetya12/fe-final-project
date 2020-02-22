@@ -30,7 +30,7 @@ const useStyles = makeStyles(theme => ({
       marginRight: theme.spacing(2),
       flexGrow: 1,
       justifyContent:'flex-start',
-      color:'#12AFC0'
+      color:'#4288CC'
     },
     toolBar:{
         backgroundColor:"white"
@@ -45,9 +45,9 @@ const useStyles = makeStyles(theme => ({
         flexGrow:7
     },
     inputRoot: {
-        color: '#12AFC0',
+        color: '#4288CC',
         width:'50%',
-        borderColor:'black',
+        borderColor:'#4288CC',
         borderWidth:1,
         height:50,
         // backgroundColor:'red'
@@ -57,7 +57,7 @@ const useStyles = makeStyles(theme => ({
         padding: theme.spacing(1, 1, 1, 7),
         transition: theme.transitions.create('width'),
         width: '50%',
-        color:'#12AFC0',
+        color:'#4288CC',
         [theme.breakpoints.up('md')]: {
             width: 200,
         },
@@ -65,8 +65,8 @@ const useStyles = makeStyles(theme => ({
     search: {
         position: 'relative',
         borderRadius: theme.shape.borderRadius,
-        borderWidth: 5,
-        borderColor: '#d6d7da',
+        borderWidth: 0,
+        borderColor: '#4288CC',
         marginRight: theme.spacing(2),
         marginLeft: 0,
         width: '100%',
@@ -80,7 +80,7 @@ const useStyles = makeStyles(theme => ({
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        color:'#12AFC0'
+        color:'#4288CC'
     },
     inputSearch:{
         color:'secondary'
@@ -93,6 +93,14 @@ const useStyles = makeStyles(theme => ({
         paddingLeft:100,
         backgroundColor:'white'
     },
+    notchedOutline :{
+        borderWidth:"1px",
+        borderColor:"yellow !important"
+    },
+    inputFocus:{
+        borderWidth:"1px",
+        borderColor:"grey !important"
+    }
   }));
 
 export default function Navbar(){
@@ -116,6 +124,7 @@ export default function Navbar(){
                             classes={{
                                 root: classes.inputRoot,
                                 input: classes.inputInput,
+                                focused:classes.inputFocus
                             }}
                             inputProps={{ 'aria-label': 'search' }}
                             />

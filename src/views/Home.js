@@ -2,7 +2,7 @@ import React,{Component} from 'react'
 import Carousel from '../components/Carousel'
 import { makeStyles } from '@material-ui/core/styles';
 import { classes } from 'istanbul-lib-coverage';
-import { Grid, CardActionArea } from '@material-ui/core';
+import { Grid,GridListTile, CardActionArea } from '@material-ui/core';
 import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
 import Select from '@material-ui/core/Select';
@@ -46,18 +46,15 @@ const useStyles = makeStyles(theme => ({
         marginTop:'3%'
     },
     gridList: {
-        width: 800,
-        height: 700,
-        // Promote the list into his own layer on Chrome. This cost memory but helps keeping high FPS.
-        transform: 'translateZ(0)',
       },
-    root:{
-      maxWidth:250
+    grid:{
+      flexGrow:1
     },
-    cusmedia:{
-      height:200,
-      width:130,
+    gridListTile:{
+      marginLeft:20,
+      marginRight:20,
     }
+    
 }))
 
 function Home(props){
@@ -116,52 +113,40 @@ function Home(props){
                 </FormControl>
                 </Grid>
             </Grid>
-            {/* <Grid container spacing={1} className={classes.containerProduk}>
-                <GridList cellHeight={200} cols={4} spacing={30} className={classes.gridList}>
-                    {databooks.map((book,index)=>(
-                        <Link to={'/product/'+book._id} key={index}>
-                            <BookCard data={book}/>
-                        </Link>
-                    ))}
-                </GridList>
-            </Grid> */}
-            <Grid container>
-              <Card className={classes.root}>
-                <CardActionArea>
-                  <div style={{
-                    display:"flex",
-                    alignItems:"center",
-                    justifyContent:"center",
-                    paddingTop:20
-                  }}>
-                    <CardMedia
-                      component="img"
-                      className={classes.cusmedia}
-                      image="https://s3.amazonaws.com/AKIAJC5RLADLUMVRPFDQ.book-thumb-images/barlotta3.jpg"
-                    />
-                  </div>
+            <Grid container spacing={5} justify="center" className={classes.grid}>
+              <GridList  cellHeight={370} cols={6} rows={1}>
+                <GridListTile cols="1" className={classes.gridListTile}>
+                  <Link to="/product/2">
+                    <BookCard/>
 
-                  <CardContent>
-                    <Typography gutterBottom variant="h5" component="h2">
-                      Lizard
-                    </Typography>
-                    <Typography variant="body2" color="textSecondary" component="p">
-                      Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging
-                      across all continents except Antarctica
-                    </Typography>
-                  </CardContent>
-                </CardActionArea>
-                <CardActions>
-                  <Button size="small" color="primary">
-                    Share
-                  </Button>
-                  <Button size="small" color="primary">
-                    Learn More
-                  </Button>
-                </CardActions>
-              </Card>
-              
-            </Grid>
+                  </Link>
+                </GridListTile>
+                <GridListTile cols="1" className={classes.gridListTile}>
+                  <BookCard/>
+                </GridListTile>
+                <GridListTile cols="1" className={classes.gridListTile}>
+                  <BookCard/>
+                </GridListTile>
+                <GridListTile cols="1" className={classes.gridListTile}>
+                  <BookCard/>
+                </GridListTile>
+                <GridListTile cols="1" className={classes.gridListTile}>
+                  <BookCard/>
+                </GridListTile>
+                <GridListTile cols="1" className={classes.gridListTile}>
+                  <BookCard/>
+                </GridListTile>
+                <GridListTile cols="1" className={classes.gridListTile}>
+                  <BookCard/>
+                </GridListTile>
+               
+
+
+              </GridList>
+            
+            </Grid>   
+
+           
         </div>
     )
     

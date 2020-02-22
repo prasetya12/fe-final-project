@@ -9,7 +9,8 @@ import RowBook from '../components/RowBook'
 import {oneBook} from '../store/actions/booksAction' 
 import {connect} from 'react-redux'
 import {Redirect} from 'react-router-dom'
-
+import { GridList } from '@material-ui/core';
+import BookCard from '../components/BookCard'
 
 
 
@@ -40,16 +41,16 @@ function Detail(props){
         props.oneBook(id)
         
       }, [])
-    if(!window.localStorage.getItem('token')) return <Redirect to ='/login'/>
+    // if(!window.localStorage.getItem('token')) return <Redirect to ='/login'/>
 	return(
 		<Grid container className={classes.container}>
 			<Grid container xs={12} style={{height:'100%',backgroundColor:'white',padding:'2%'}}>
 				<Grid container xs={12} style={{height:350}}>
-					<Grid item xs={3} style={{height:'100%',justifyContent:'center',display:'flex'}}>
-                    	<img src={require('../assets/buku.jpg')} style={{height:'100%'}}/>
+					<Grid item xs={4} sm={3} style={{height:'100%',justifyContent:'center',display:'flex'}}>
+                    	<img src={require('../assets/buku.jpg')} style={{width:'70%'}}/>
 						
 					</Grid>
-					<Grid item xs={6} style={{height:'100%',display:'flex',flexDirection:'column'}}>
+					<Grid item xs={4} sm={5} style={{height:'100%',display:'flex',flexDirection:'column'}}>
 						<Typography variant="h4" component="h2">
 						Buku Aktivitas Si Kecil : Dunia Anak
 						</Typography>
@@ -60,7 +61,7 @@ function Detail(props){
 						Rp.120.000
 						</Typography>
 					</Grid>
-					<Grid item xs={3}  style={{height:'100%',padding:'1%'}}>
+					<Grid item xs={4} sm={3}  style={{height:'100%',padding:'1%'}}>
 						<Grid style={{height:'100%',width:'100%'}}>
 							<Grid container style={{height:'20%',alignItems : 'center'}}>
 								<LocalShippingIcon style={{fontSize:40,color:'#f50057'}}/>
@@ -122,7 +123,18 @@ Fahri mempunyai tetangga di lantai tiga, yakni seorang wanita Mesir bernama Mari
 				</h4>
 			</Grid>
 			<h3 style={{marginTop:30}}>Recomendation</h3>
-			
+			<Grid container>
+				<GridList cols={6} rows={1}>
+					<BookCard/>
+					<BookCard/>
+					<BookCard/>
+					<BookCard/>
+					<BookCard/>
+					<BookCard/>
+					<BookCard/>
+
+				</GridList>
+			</Grid>
 		</Grid>
 	)
 }

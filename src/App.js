@@ -6,6 +6,7 @@ import Login from '../src/views/Login'
 import Signup from '../src/views/Signup'
 import Home from '../src/views/Home'
 import Detail from '../src/views/Detail'
+import Cart from '../src/views/Cart'
 import Navbar from '../src/components/Navbar'
 
 
@@ -23,7 +24,9 @@ const DefaultContainer = ()=>(
       <Navbar/>
       <Switch>
         <Route exact path='/' component={Home}/>
-        <Route path='/product/:id' component={Detail}/> 
+        <Route path='/product/:id' component={Detail}/>
+        <Route path='/cart/:id_cart' component={Cart}/> 
+
       </Switch>
   </div>
 )
