@@ -1,6 +1,6 @@
 import React,{Component} from 'react'
 import { makeStyles } from '@material-ui/core/styles';
-import {Typography,Grid,Box,Card, CardContent,Button} from '@material-ui/core'
+import {Typography,Grid,Box,Card, CardContent,Button,ButtonGroup} from '@material-ui/core'
 import { borders } from '@material-ui/system';
 import ProductDetailCart from '../components/ProductDetailCart'
 
@@ -89,14 +89,24 @@ function Cart(props){
                                 <Grid item direction="row" align="center" xs={6}>
                                     <ProductDetailCart/>
                                 </Grid>
-                                <Grid item direction="row" align="center" xs={2}>
-                                    Quantity
+                                <Grid container direction='row' justify='center' align='center' xs={2} >
+                                    <Grid container justify='center' alignItems='center'>
+                                        <ButtonGroup size="small" aria-label="small outlined button group" style={{height:30}}>
+                                            <Button>-</Button>
+                                            <Button >5</Button>
+                                            <Button>+</Button>
+                                        </ButtonGroup>
+                                    </Grid>
                                 </Grid>
-                                <Grid item direction="row" align="center" xs={2}>
-                                    Price
+                                <Grid container direction="row" align="center" xs={2}>
+                                    <Grid container direction="row" alignItems="center" justify="center">
+                                        Rp 150.000,-
+                                    </Grid>
                                 </Grid>
-                                <Grid item direction="row" align="center" xs={2}>
-                                    Total
+                                <Grid container direction="row" align="center" xs={2}>
+                                    <Grid container direction="row" alignItems="center" justify="center">
+                                        Rp 150.000,-
+                                    </Grid>
                                 </Grid>
                             </Grid>
                         </CardContent>

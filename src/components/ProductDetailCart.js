@@ -4,8 +4,8 @@ import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles(theme=>({
     cusmedia:{
-        height:200,
-        width:130,
+        height:150,
+        width:100,
     },
 }))
 
@@ -13,16 +13,21 @@ function ProductDetailCart(props){
     const classes = useStyles();
 
     return(
-        <Grid container>
-            <Grid container xs={6}>
+        <Grid container alignItems='center' style={{paddingLeft:20}}>
+            <Grid container xs={3}>
                 <CardMedia
                         component="img"
                         className={classes.cusmedia}
                         image="https://s3.amazonaws.com/AKIAJC5RLADLUMVRPFDQ.book-thumb-images/barlotta3.jpg"
                     />
             </Grid>
-            <Grid container xs={6}>
-
+            <Grid container xs={9}>
+                <Grid container style={{fontWeight:500,fontSize:18}}>
+                    Taming Jaguar
+                </Grid>
+                <Grid container style={{fontSize:14}}>
+                    Alex Morgan
+                </Grid>
             </Grid>
         </Grid>
     )

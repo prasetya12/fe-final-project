@@ -36,7 +36,7 @@ const SignedInLinks =(props)=>{
     return(
         <Box className="container" display="flex" style={{alignItems:'center'}}>
             <Box p={1} mx={5} order={3} style={{color:'#4288CC',display:'flex'}}>
-              <Link to="/cart/2">
+              <Link to="/cart/2" style={{color:'#4288CC'}}>
                 <ShoppingCartIcon style={{fontSize:30}}/>
               </Link>
             </Box>
