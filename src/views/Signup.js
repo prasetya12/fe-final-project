@@ -17,6 +17,12 @@ import {signUp} from '../store/actions/authAction'
 import {Redirect} from 'react-router-dom'
 import Snackbar from '@material-ui/core/Snackbar';
 import MySnackbarContentWrapper from '../components/MySnackbarContentWrapper'
+import Input from '@material-ui/core/Input';
+import Select from '@material-ui/core/Select';
+import InputLabel from '@material-ui/core/InputLabel';
+import FormHelperText from '@material-ui/core/FormHelperText';
+import FormControl from '@material-ui/core/FormControl';
+import NativeSelect from '@material-ui/core/NativeSelect';
 
 const useStyles = makeStyles(theme => ({
   paper: {
@@ -36,7 +42,13 @@ const useStyles = makeStyles(theme => ({
   submit: {
     margin: theme.spacing(3, 0, 2),
   },
+  formControl: {
+    minWidth: 120,
+    marginTop:15
+  },
 }));
+
+
 
 function Signup(props) {
   const classes = useStyles();
@@ -47,13 +59,36 @@ function Signup(props) {
   const [open, setOpen] = useState(false);
   const [variant,setVariant] = useState('success');
   const [message,setMessage] = useState('New User Created');
+  const [role,setRole] = useState("5e50f799726f54130c29429a");
+  const inputLabel = React.useRef(null);
+  const [labelWidth, setLabelWidth] = useState(0);
+  const [file, setFile] = useState("");
+
+
 
   const handleSubmit = (e)=>{
     e.preventDefault()
     console.log(firstName,'firstname')
     console.log(lastName,'lastname')
     console.log(email,'email')
-    props.signUp(firstName,lastName,email,password)
+    console.log(password,'password')
+    console.log(role,'role')
+    console.log(role,'role')
+    console.log(file,'file')
+    const fullName = firstName + " "+ lastName
+    const params = {
+      firstName,
+      lastName,
+      fullName,
+      email,
+      password,
+      file,
+      role
+    }
+
+
+
+    props.signUp(params)
 
   }
   const handleClose = (event, reason) => {
@@ -63,6 +98,7 @@ function Signup(props) {
 
     setOpen(false);
   };
+
 
   // useEffect(()=>{
   //   console.log(props.auth,"auth")
@@ -172,6 +208,38 @@ function Signup(props) {
             onChange={event=>setPassword(event.target.value)}
             autoComplete="current-password"
           />
+          <TextField
+            variant="outlined"
+            margin="normal"
+            required
+            fullWidth
+            name="upload"
+            type="file"
+            onChange={event=>setFile(event.target.files[0])}
+            id="file"
+            inputProps={{ accept: 'images/jpeg, images/jpg, images/png' }}
+            
+          />
+          <FormControl variant="outlined" className={classes.formControl}>
+            <InputLabel ref={inputLabel} htmlFor="outlined-age-native-simple">
+              Role
+            </InputLabel>
+            <Select
+              native
+              value={role}
+              style={{width:377}}
+              onChange={(event)=>setRole(event.target.value)}
+              labelWidth={labelWidth}
+              inputProps={{
+                name: 'age',
+                id: 'outlined-age-native-simple',
+              }}
+            >
+              <option value={"5e50f799726f54130c29429a"}>Admin</option>
+              <option value={"5e50f7a1726f54130c29429b"}>User</option>
+            </Select>
+          </FormControl>
+          
 
           <Button
             type="submit"
@@ -206,7 +274,7 @@ const mapStateToProps = (state)=>{
 
 const mapDispatchToProps = (dispatch)=>{
   return{
-    signUp:(firstName,lastName,email,password)=>dispatch(signUp(firstName,lastName,email,password))
+    signUp:(params)=>dispatch(signUp(params))
   }
 }
 

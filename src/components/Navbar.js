@@ -100,6 +100,9 @@ const useStyles = makeStyles(theme => ({
     inputFocus:{
         borderWidth:"1px",
         borderColor:"grey !important"
+    },
+    appbar:{
+        zIndex: theme.zIndex.drawer + 1,
     }
   }));
 
@@ -107,7 +110,7 @@ export default function Navbar(){
     const classes = useStyles();
     return(
         <div>
-            <AppBar  position="fixed">
+            <AppBar  position="fixed" className={classes.appbar}>
                 <Toolbar className={classes.toolBar}>
                     <Box  className={classes.containerButton}>
                         <IconButton edge="start" className={classes.menuButton} href="/" aria-label="menu">

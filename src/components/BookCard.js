@@ -1,5 +1,6 @@
 import React,{Component} from 'react'
 import Card from '@material-ui/core/Card';
+
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
@@ -7,50 +8,30 @@ import CardActions from '@material-ui/core/CardActions';
 import CardMedia from '@material-ui/core/CardMedia';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import GridListTile from '@material-ui/core/GridListTile'
+import {url} from '../constant/const'
 
+function convertRupiah(number){
+    const reverse = number.toString().split('').reverse().join('')
+    const ribuan = reverse.match(/\d{1,3}/g);
+    const ribuan_ = ribuan.join('.').split('').reverse().join('');
 
+    return "Rp. "+ribuan_+",-"
 
+}
 
 const useStyles = makeStyles(theme => ({
-    card: {
-        maxWidth: 345,
-      },
     root:{
-        maxWidth:200
+        width:180
     },
     cusmedia:{
-        height:200,
-        width:130,
+        height:130,
+        width:90
     },
 }))
 
 
-// export default function BookCard(props){
-//     const data = props.data
-//     const classes = useStyles();
-
-//     return(
-//         <Card className={classes.card}>
-//                 <div style={{display:'flex',justifyContent:'center',padding:10}}>
-//                     <img src={data.image_url} style={{width:150,height:250}}/>
-                    
-//                 </div>
-//                 <CardContent>
-//                     <Typography variant="body1" color="textPrimar" component="p" style={{fontWeight:'500'}}>
-//                     {data.name}
-//                     </Typography>
-//                     <Typography variant="body2" color="textSecondary" component="p" style={{marginTop:5}}>
-//                     by JK Rowling
-//                     </Typography>
-//                     <Typography variant="body2" component="p" style={{marginTop:5,color:'#12AFC0'}}>
-//                     {data.price.toLocaleString('id', { style: 'currency', currency: 'IDR' })}
-//                     </Typography>
-//                 </CardContent>
-//         </Card>
-//     )
-// }
-
 export default function BookCard(props){
+    console.log(props.data,'props')
     const classes = useStyles();
     return(
             <Card className={classes.root}>
@@ -64,20 +45,20 @@ export default function BookCard(props){
                     <CardMedia
                         component="img"
                         className={classes.cusmedia}
-                        image="https://s3.amazonaws.com/AKIAJC5RLADLUMVRPFDQ.book-thumb-images/barlotta3.jpg"
+                        image={url+"/"+props.data.cover}
                     />
                     </div>
 
                     <CardContent>
-                    <Typography gutterBottom variant="h6" component="h2" style={{color:"#4288CC"}}>
-                        Taming Jaguar
-                    </Typography>
-                    <Typography variant="body2" color="textSecondary" component="p">
-                        by Alex Morgan
-                    </Typography>
-                    <Typography variant="body2" color="textSecondary" component="p" style={{marginTop:20,color:'#A53365'}}>
-                        Rp. 20.000,-
-                    </Typography>
+                        <Typography  style={{color:"#4288CC",fontSize:'0.8rem'}}>
+                        {props.data.book_name}
+                        </Typography>
+                        <Typography variant="body3" color="textSecondary" component="p">
+                            {"by "+props.data.author}
+                        </Typography>
+                        <Typography variant="body2" color="textSecondary" component="p" style={{marginTop:20,color:'#A53365'}}>
+                            {convertRupiah(props.data.price)}
+                        </Typography>
                     </CardContent>
                     
                 </CardActionArea>

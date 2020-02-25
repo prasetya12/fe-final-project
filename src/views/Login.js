@@ -66,7 +66,7 @@ const useStyles = makeStyles(theme => ({
   if(props.auth.auth.isSuccess) return <Redirect to="/" />
   return (
     <Container component="main" maxWidth="xs">
-      {props.auth.auth.signupsuccess==true?(
+      {props.auth.auth.isSuccess==true?(
         <Snackbar
         anchorOrigin={{
           vertical: 'top',
@@ -82,7 +82,23 @@ const useStyles = makeStyles(theme => ({
           message='New User Created ,Please Login'
         />
       </Snackbar>
-        ):null} 
+        ):props.auth.auth.isSuccess==false?(
+          <Snackbar
+          anchorOrigin={{
+            vertical: 'top',
+            horizontal: 'right',
+          }}
+          open='true'
+          autoHideDuration={120}
+          onClose={handleClose}
+        >
+          <MySnackbarContentWrapper
+            onClose={handleClose}
+            variant='error'
+            message='Failed Login'
+          />
+        </Snackbar>
+          ):null} 
 
       <CssBaseline />
       <div className={classes.paper}>

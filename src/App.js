@@ -7,7 +7,12 @@ import Signup from '../src/views/Signup'
 import Home from '../src/views/Home'
 import Detail from '../src/views/Detail'
 import Cart from '../src/views/Cart'
+import Admin from '../src/views/Admin'
+import BookAdmin from '../src/views/BookAdmin'
+
 import Navbar from '../src/components/Navbar'
+import CusDrawer from '../src/components/CusDrawer'
+import NavbarRev from '../src/components/NavbarRev'
 
 
 const LoginContainer = ()=>(
@@ -18,14 +23,29 @@ const LoginContainer = ()=>(
   
 )
 
+const AdminContainer = ()=>(
+  <div className="container">
+    <CusDrawer/>
+    <Switch>
+      <Route exact path="/admin/books" component={BookAdmin}></Route>
+      <Route  path="/admin/category"></Route>
+      <Route  path="/admin/user"></Route>
+
+    </Switch>
+  </div>
+)
+
 
 const DefaultContainer = ()=>(
   <div className="container">
-      <Navbar/>
+      {/* <Navbar/> */}
+      <NavbarRev/>
       <Switch>
         <Route exact path='/' component={Home}/>
         <Route path='/product/:id' component={Detail}/>
         <Route path='/cart/:id_cart' component={Cart}/> 
+        <Route component={AdminContainer}/> 
+
 
       </Switch>
   </div>

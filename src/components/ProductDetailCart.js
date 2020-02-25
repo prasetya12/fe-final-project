@@ -14,14 +14,14 @@ function ProductDetailCart(props){
 
     return(
         <Grid container alignItems='center' style={{paddingLeft:20}}>
-            <Grid container xs={3}>
+            <Grid container xs={4}>
                 <CardMedia
                         component="img"
                         className={classes.cusmedia}
                         image="https://s3.amazonaws.com/AKIAJC5RLADLUMVRPFDQ.book-thumb-images/barlotta3.jpg"
                     />
             </Grid>
-            <Grid container xs={9}>
+            <Grid container xs={8}>
                 <Grid container style={{fontWeight:500,fontSize:18}}>
                     Taming Jaguar
                 </Grid>

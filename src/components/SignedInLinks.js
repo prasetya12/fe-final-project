@@ -10,7 +10,9 @@ import MenuItem from '@material-ui/core/MenuItem';
 import {signOut} from '../store/actions/authAction'
 import {connect} from 'react-redux'
 import {Redirect,Link} from 'react-router-dom'
-
+import AccountCircle from '@material-ui/icons/AccountCircle';
+import IconButton from '@material-ui/core/IconButton';
+import {url} from '../constant/const'
 
 const useStyles = makeStyles(theme => ({
     grow: {
@@ -19,18 +21,48 @@ const useStyles = makeStyles(theme => ({
 
   }));
 
-
+  
+  const menuId = 'primary-search-account-menu';
+  
 
 const SignedInLinks =(props)=>{
     const classes = useStyles();
     const [anchorEl, setAnchorEl] = React.useState(null);
-    
+    const isMenuOpen = Boolean(anchorEl);
+
     const handleClick = event=>{
         setAnchorEl(event.currentTarget);
     }
     const handleLogout = () => {
         props.signOut()
       };
+    const handleMenuClose = () => {
+        setAnchorEl(null);
+    };
+    const renderMenu = (
+        <Menu
+          anchorEl={anchorEl}
+          anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+          id={menuId}
+          keepMounted
+          transformOrigin={{ vertical: 'top', horizontal: 'right' }}
+          open={isMenuOpen}
+          onClose={handleMenuClose}
+        >
+          <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
+          <Link to="/admin">
+            <MenuItem onClick={handleMenuClose}>Admin Panel</MenuItem>
+
+          </Link>
+          <MenuItem onClick={handleMenuClose}>Logout</MenuItem>
+        </Menu>
+      );
+    const handleProfileMenuOpen = event => {
+        setAnchorEl(event.currentTarget);
+    };
+    
+    
+
 
     if(props.auth.auth.isLogout) return <Redirect to="/" />
     return(
@@ -41,21 +73,21 @@ const SignedInLinks =(props)=>{
               </Link>
             </Box>
             <Box p={1} order={3} style={{color:'#12AFC0'}}>
-                <Avatar alt="Remy Sharp" src="/broken-image.jpg" aria-controls="simple-menu" aria-haspopup="true" className={classes.orange} onClick={handleClick}>
+            
+              
+                <Avatar alt="Remy Sharp" src="/broken-image.jpg" aria-controls={menuId} aria-haspopup="true" className={classes.orange} onClick={handleProfileMenuOpen}>
                     B
                 </Avatar>
-                <Menu
+                {/*<Menu
                     id="simple-menu"
                     anchorEl={anchorEl}
                     keepMounted
                     open={Boolean(anchorEl)}
                     onClose={handleLogout}
                 >
-                    {/* <MenuItem onClick={handleClose}>Profile</MenuItem>
-                    <MenuItem onClick={handleClose}>My account</MenuItem> */}
                     <MenuItem onClick={handleLogout}>Logout</MenuItem>
-                </Menu>
-                
+                </Menu> */}
+                {renderMenu}
             </Box>
         </Box>
     )

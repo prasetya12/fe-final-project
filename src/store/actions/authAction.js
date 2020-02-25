@@ -35,16 +35,48 @@ export const signOut = ()=>{
 	}
 }
 
-export const signUp = (firstName,lastName,email,password)=>{
-	return (dispatch)=>{
-		return axios.post(`${url}/users`,{first_name:firstName,last_name:lastName,role:0,email:email,password:password})
-			.then(response=>{
-				console.log(response,'response signup')
-				dispatch({type:"SIGNUP_SUCCESS",response})
-			})
-			.catch((err)=>{
-				console.log(err)
-				dispatch({type:"SIGNUP_ERROR",err})
-			})
+export const signUp = (params)=>{
+	try{
+		console.log(params.file)
+
+		const formData = new FormData()
+		formData.append('avatar',params.file)
+		formData.append('first_name',params.firstName)
+		formData.append('last_name',params.lastName)
+		formData.append('fullname',params.fullName)
+		formData.append('role',params.role)
+		formData.append('email',params.email)
+		formData.append('password',params.password)
+
+
+		// const fd = [];
+
+		// for (var pair of formData.entries()) {
+		// 	fd[pair[0]]=pair[1]
+		// 	console.log(pair[0]+ ', ' + pair[1]); 
+		// }
+
+		// const datapost = {
+		// 	first_name: params.firstName,
+		// 	last_name : params.lastName,
+		// 	fullname : params.fullName,
+		// 	role : params.role,
+		// 	email : params.email,
+		// 	password : params.password,
+		// }
+
+		return (dispatch)=>{
+			return axios.post(`${url}/users/register`,formData)
+				.then(response=>{
+					console.log(response,'response signup')
+					dispatch({type:"SIGNUP_SUCCESS",response})
+				})
+				.catch((err)=>{
+					console.log(err)
+					dispatch({type:"SIGNUP_ERROR",err})
+				})
+		}
+	}catch(error){
+		console.log(error)
 	}
 }

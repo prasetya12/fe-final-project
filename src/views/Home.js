@@ -21,6 +21,8 @@ import GridList from '@material-ui/core/GridList';
 import dataset from '../sample_data/dataset'
 import Button from '@material-ui/core/Button';
 
+import ListBook from '../components/ListBook'
+
 
 const useStyles = makeStyles(theme => ({
     card: {
@@ -48,12 +50,10 @@ const useStyles = makeStyles(theme => ({
     gridList: {
       },
     grid:{
-      flexGrow:1
+      flexGrow:1,
+      marginTop:20
     },
-    gridListTile:{
-      marginLeft:20,
-      marginRight:20,
-    }
+   
     
 }))
 
@@ -75,18 +75,14 @@ function Home(props){
         setCategory(event.target.value);
       };
 
-      // React.useEffect(()=>{
-      //   return ()=>{
-      //       props.getBooks()
-      //   }
-      // })
-
       React.useEffect(()=>{
         props.getBooks()
         
       }, [])
+    const listbook = databooks.data
+    console.log(listbook,'books')
 
-
+    
     return(
         <div className={classes.container}>
             <Carousel/>
@@ -114,11 +110,11 @@ function Home(props){
                 </Grid>
             </Grid>
             <Grid container spacing={5} justify="center" className={classes.grid}>
-              <GridList  cellHeight={370} cols={6} rows={1}>
-                <GridListTile cols="1" className={classes.gridListTile}>
+              <GridList  cellHeight={300} cols={6} rows={1}>
+               <ListBook data={listbook}/> 
+                {/* <GridListTile cols="1" className={classes.gridListTile}>
                   <Link to="/product/2">
                     <BookCard/>
-
                   </Link>
                 </GridListTile>
                 <GridListTile cols="1" className={classes.gridListTile}>
@@ -138,7 +134,7 @@ function Home(props){
                 </GridListTile>
                 <GridListTile cols="1" className={classes.gridListTile}>
                   <BookCard/>
-                </GridListTile>
+                </GridListTile> */}
                
 
 

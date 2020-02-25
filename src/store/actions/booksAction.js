@@ -4,8 +4,14 @@ import {url} from '../../constant/const.js'
 
 
 export const getBooks = ()=>{
+	const params={
+		pageNo:1,
+		size:20,
+		search:""
+	}
+
 	return (dispatch)=>{
-		return axios.get(`${url}/books`)
+		return axios.get(`${url}/books`,{params:params})
 			.then(response=>{
 				dispatch({type:"BOOKS_SUCCESS",payload:response.data})
 
