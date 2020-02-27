@@ -142,7 +142,9 @@ export default function Navbar(){
                     <Signin/> 
                         {/* {window.localStorage.getItem('token')!=null?<Signin/>:<Signout/>} */}
                     </Box>
+                   
                 </Toolbar>
+                
             </AppBar>
         </div>
     )

@@ -18,6 +18,9 @@ const useStyles = makeStyles(theme => ({
     grow: {
       flexGrow: 1,
     },
+    orange:{
+      cursor:'pointer'
+    }
 
   }));
 
@@ -50,10 +53,10 @@ const SignedInLinks =(props)=>{
           onClose={handleMenuClose}
         >
           <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-          <Link to="/admin">
+          <a href="/admin" style={{textDecoration:'none',color:'inherit'}}>
             <MenuItem onClick={handleMenuClose}>Admin Panel</MenuItem>
 
-          </Link>
+          </a>
           <MenuItem onClick={handleMenuClose}>Logout</MenuItem>
         </Menu>
       );

@@ -34,7 +34,7 @@ const useStyles = makeStyles(theme => ({
         paddingLeft:'10%',
         alignItems:'center',
         display:'flex',
-        flexDirection:'column'
+        flexDirection:'column',
     },
     formControl: {
         margin: theme.spacing(1),
@@ -86,6 +86,7 @@ function Home(props){
     return(
         <div className={classes.container}>
             <Carousel/>
+
             <Grid container spacing={3} style={{display:'flex',alignItems:'center'}}>
                 <Grid item xs={6} style={{fontWeight:'500',fontSize:20}}>
                     Produk

@@ -4,6 +4,7 @@ import {AppBar, Toolbar, Typography, InputBase} from '@material-ui/core'
 import SearchIcon from '@material-ui/icons/Search';
 import red from '@material-ui/core/colors/red';
 import grey from '@material-ui/core/colors/blueGrey';
+import Signin from '../components/SignedInLinks'
 
 
 
@@ -58,6 +59,24 @@ const useStyles = makeStyles(theme=>({
             marginLeft:130,
             marginRight:130
         }
+    },
+    sectionDesktop:{
+        display:'none',
+        [theme.breakpoints.up('md')]:{
+            display:'flex'
+        }
+        
+    },
+    sectionMobile:{
+        display:'flex',
+        [theme.breakpoints.up('md')]:{
+            display:'none'
+        }
+    },
+    menuNavbar:{
+        flexGrow:1,
+        justifyContent:'flex-end',
+        display:'flex'
     }
 }))
 
@@ -70,10 +89,12 @@ export default function NavbarRev(){
         <div className={classes.grow}>
             <AppBar position="fixed" color='inherit'>
                 <Toolbar className={classes.toolbar}>
-                    <Typography className={classes.title} variant="h6">
-                        BookFair
-                    </Typography>
-                    <div className={classes.search}>
+                    <a href='/' style={{textDecoration:'none'}}>
+                        <Typography className={classes.title} variant="h6">
+                            BookFair
+                        </Typography>
+                    </a>
+                    <div className={`${classes.search} ${classes.sectionDesktop}`}>
                         <div className={classes.searchIcon}>
                             <SearchIcon style={{color:sec}}/>
                         </div>
@@ -86,6 +107,25 @@ export default function NavbarRev(){
                             />
                         </div>
                     </div>
+                    <div className={classes.menuNavbar}>
+                        <Signin/>
+                    </div>
+
+                </Toolbar>
+                <Toolbar className={classes.sectionMobile}>
+                    <div className={classes.search}>
+                            <div className={classes.searchIcon}>
+                                <SearchIcon style={{color:sec}}/>
+                            </div>
+                            <div className={classes.input}>
+                                <InputBase placeholder="Search..."
+                                    classes={{
+                                        root:classes.inputRoot,
+                                        input:classes.inputInput
+                                    }}
+                                />
+                            </div>
+                        </div>
                 </Toolbar>
             </AppBar>
         </div>
